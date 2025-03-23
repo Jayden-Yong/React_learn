@@ -1,11 +1,17 @@
 // import { Fragment } from "react"; --> import Fragmet to use <Fragment>
-import { MouseEvent } from "react";
+// import { MouseEvent } from "react";
+import { useState } from "react";
 
 function ListGroup() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+  // let selectedIndex = 0;
+  
+  // Dont use variables as state because React will not know the state change
+  // Use a hook like 'useState' instead will will update DOM directly whenever there is a change
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   // Event handler
-  const handleClick = (event: MouseEvent) => console.log(event);
+  // const handleClick = (event: MouseEvent) => console.log(event);
   // Because onClick = {(event) => console.log(event)} is an inline function, typescript knows the type of "event" param
   // If declared as new function (Event handler), the type of "event" must be specified (type annotation) with an import of that event. (event: MouseEvent)
 
@@ -39,9 +45,9 @@ function ListGroup() {
       <ul className="list-group">
         {items.map((item, index) => (
           <li
-            className="list-group-item"
+            className={selectedIndex === index ? "list-group-item active" : "list-group-item"}
             key={item}
-            onClick={handleClick}
+            onClick={ () => {setSelectedIndex(index)} }
           >
             {item}
           </li>
